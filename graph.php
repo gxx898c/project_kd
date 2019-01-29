@@ -66,8 +66,12 @@
                                 
                                 <i class="fa fa-angle-down"></i></h4>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Settings</a>
-                                    <a class="dropdown-item" href="#">Log Out</a>
+                                <?php   if($_SESSION["role"] == 1) { ?>
+                                    <a class="dropdown-item" href="usermanagement.php">User Management</a>
+                                <?php   } ?>   
+
+                                
+                                    <a class="dropdown-item" href="logoutProcess.php">Log Out</a>
                                 </div>
                             </div>
                         </div>

@@ -218,17 +218,24 @@
                                             <div class="modal-body">
                                                 <div>
                                                     <label for="example-text-input" class="col-form-label">ชื่อผู้ใช้งาน</label>                                                    
-                                                    <input class="form-control" type="text" value="" id="newpass" name="username"> 
+                                                    <input class="form-control" type="text" value="" id="addCencel1" name="username"> 
                                                     <label for="example-text-input" class="col-form-label">รหัสผ่าน</label>
-                                                    <input class="form-control" type="password" value="" id="newpass" name="password"> 
+                                                    <input class="form-control" type="password" value="" id="addCencel2" name="password"> 
                                                     <label for="example-text-input" class="col-form-label">คำอธิบาย</label>
-                                                    <input class="form-control" type="text" value="" id="newpass" name="farm_info"> 
+                                                    <input class="form-control" type="text" value="" id="addCencel3" name="farm_info"> 
 
                                                 </div>
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="addfunction()">ยกเลิก</button>
+                                                <script>
+                                                    function addfunction() {
+                                                    document.getElementById("addCencel1").value="";
+                                                    document.getElementById("addCencel2").value="";
+                                                    document.getElementById("addCencel3").value="";
+                                                    }
+                                                </script>
                                                 <input type="submit" class="btn btn-primary" value="บันทึก">
                                             </div>
                                         </div>
