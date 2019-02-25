@@ -1,6 +1,9 @@
 <?php 
     include "session.php";
-
+    include 'db.php';
+    $sensor = mysqli_query($con,"SELECT sensor.sensor_name, unittype.unit_name, min, max, lat, lng 
+                                    FROM sensor 
+                                    INNER JOIN unittype ON sensor.unit_id = unittype.unit_id");
 ?>
 
 <!doctype html>
@@ -45,7 +48,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-3">
-                        <div class="logo">
+                        <div class="dashboard">
                             <h1>Dashboard</h1>
                         </div>
                     </div>
@@ -183,110 +186,31 @@
                         <div class="card-body text-center">
                             <h4 class="header-title" >ข้อมูลเซนเซอร์</h4>
                             <div class="data-tables text-center" align="center">
-                                <table id="dataTable">
-                                    <thead class="bg-light">
-                                        <tr>
-                                            <th>ชื่อ</th>
-                                            <th>หน่วย</th>
-                                            <th>ค่าต่ำสุด</th>
-                                            <th>ค่าสูงสุด</th>
-                                            <th>ละติจูด</th>
-                                            <th>ลองจิจูด</th>
-                                            <th>คำอธิบาย</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                        <tr>
-                                            <td>น้ำ 1</td>
-                                            <td>ลบ.ซม</td>
-                                            <td>0</td>
-                                            <td>1000</td>
-                                            <td>&nbsp;&nbsp;&nbsp;13.21635123165&nbsp;&nbsp;&nbsp;</td>
-                                            <td>&nbsp;&nbsp;&nbsp;13.15619815115&nbsp;&nbsp;&nbsp;</td>
-                                            <td>ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Angelica Ramos</td>
-                                            <td>Chief Executive Officer (CEO)</td>
-                                            <td>London</td>
-                                            <td>47</td>
-                                            <td>2009/10/09</td>
-                                            <td>$1,200,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                            <td>2009/01/12</td>
-                                            <td>$86,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>41</td>
-                                            <td>2012/10/13</td>
-                                            <td>$132,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>28</td>
-                                            <td>2011/06/07</td>
-                                            <td>$206,850</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>29</td>
-                                            <td>2011/12/12</td>
-                                            <td>$106,450</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bruno Nash</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>21</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>41</td>
-                                            <td>2012/10/13</td>
-                                            <td>$132,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>28</td>
-                                            <td>2011/06/07</td>
-                                            <td>$206,850</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>29</td>
-                                            <td>2011/12/12</td>
-                                            <td>$106,450</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bruno Nash</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>21</td>
-                                            <td>2012/03/29</td>
-                                            <td>$433,060</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col">ชื่อ</th>
+                                    <th scope="col">หน่วย</th>
+                                    <th scope="col">ค่าต่ำสุด</th>
+                                    <th scope="col">ค่าสูงสุด</th>
+                                    <th scope="col">ละติจูด</th>
+                                    <th scope="col">ลองจิจูด</th>
+                                    </tr>
+                                </thead>
+                            <tbody>
+                            <?php 
+                            while($row = mysqli_fetch_array($sensor,MYSQLI_ASSOC)){ ?>
+                                <tr>
+                                <td><?=$row["sensor_name"] ?></td>
+                                <td><?=$row["unit_name"] ?></td>
+                                <td><?=$row["min"] ?></td>
+                                <td><?=$row["max"] ?></td>
+                                <td><?=$row["lat"] ?></td>
+                                <td><?=$row["lng"] ?></td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
                             </div>
                         </div>
                         </div>

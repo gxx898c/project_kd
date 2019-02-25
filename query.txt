@@ -1,0 +1,26 @@
+ดึงฟาร์ม
+SELECT * FROM farm WHERE farm_id IN (SELECT farm_id FROM farm_user_acc WHERE user_id = 1)
+
+ดึงเซนเซอร์ทั้งหมดของ user id
+SELECT * FROM sensor_farm WHERE farm_id IN (SELECT farm_id FROM farm_user_acc WHERE user_id = 1)
+
+SELECT * FROM sensor AS A JOIN sensor_farm AS B ON A.sensor_id = B.sensor_id JOIN unittype AS C ON A.unit_id = C.unit_id
+
+SELECT A.sensor_id, A.sensor_name, C.unit_name, D.farm_name FROM sensor AS A 
+JOIN sensor_farm AS B ON A.sensor_id = B.sensor_id 
+JOIN unittype AS C ON A.unit_id = C.unit_id
+JOIN farm AS D ON B.farm_id = D.farm_id
+JOIN sensorgroup AS D ON A.sensor_id = D.sensorgroup_id
+
+
+SELECT A.sensor_id, A.sensor_name, C.unit_name, D.farm_name, E.username FROM sensor AS A 
+JOIN sensor_farm AS B ON A.sensor_id = B.sensor_id 
+JOIN unittype AS C ON A.unit_id = C.unit_id
+JOIN farm AS D ON B.farm_id = D.farm_id
+JOIN user AS E ON D.farm_id = E.user_id
+WHERE E.user_id = 1
+
+SELECT MAX(log_id) FROM log WHERE sensor_id = 1
+
+ดึงค่า
+SELECT value FROM log WHERE log_id = (SELECT MAX(log_id) FROM log WHERE sensor_id = 1 )

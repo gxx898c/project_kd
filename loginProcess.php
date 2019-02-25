@@ -6,7 +6,7 @@
     include 'db.php';
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $query = "SELECT username, role FROM user WHERE username = '".$username."' AND password = '".$password."'";
+    $query = "SELECT username, role, user_id FROM user WHERE username = '".$username."' AND password = '".$password."'";
     
     $result = mysqli_query($con,$query);
 
@@ -19,8 +19,9 @@
 
         while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
             $_SESSION["role"] = $row["role"];
+            $_SESSION["user_id"] = $row["user_id"];
         }
-        header("Location: index.php");
+        header("Location: choosefarm.php");
     }
 
     

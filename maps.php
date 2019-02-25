@@ -45,8 +45,8 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-3">
-                        <div class="logo">
-                            <a href="index.html"><img src="assets/images/icon/logo2.png" alt="logo"></a>
+                        <div class="dashboard">
+                            <h1>Dashboard</h1>
                         </div>
                     </div>
                     <!-- profile info & task notification -->
