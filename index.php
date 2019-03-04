@@ -1,13 +1,22 @@
 <?php 
     include 'db.php';
     include "session.php";
-    $query = "SELECT A.sensor_id, A.sensor_name, C.unit_name, D.farm_name, E.username FROM sensor AS A 
-                JOIN sensor_farm AS B ON A.sensor_id = B.sensor_id 
-                JOIN unittype AS C ON A.unit_id = C.unit_id
-                JOIN farm AS D ON B.farm_id = D.farm_id
-                JOIN user AS E ON D.farm_id = E.user_id
-                WHERE D.farm_id=".$_GET['farm_id'];
+    $query = "SELECT a.sensor_id, a.sensor_name, a.unit_id, a.min, a.max, a.lat, a.lng, b.group_id, c.group_name, d.unit_name 
+    FROM sensor AS a LEFT JOIN sensorgroup AS b ON a.sensor_id = b.sensor_id 
+    LEFT JOIN groupsensor AS c ON b.group_id = c.group_id 
+    LEFT JOIN unittype AS d ON a.unit_id = d.unit_id 
+    WHERE a.sensor_id IN (SELECT sensor_id FROM sensor_farm WHERE farm_id = ".$_SESSION['farm_id'].")";
     $result = mysqli_query($con,$query);
+    $group;
+    while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+        if ($row['group_id'] == null){
+            $group[-1][] = $row;
+        }
+        else
+            $group[$row['group_id']][] = $row;
+    }
+    
+    
 ?>
 
 <!doctype html>
@@ -308,20 +317,24 @@
         <!-- page title area end -->
         <div class="main-content-inner">
             <div class="row">
-                <div class="col-lg-12 mt-5">
+                <div class="col-lg-12 mt-4">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">อุปกรณ์ตรวจวัดที่ 1
+                            <h4 class="header-title">ยินดีต้อนรับเช้าสู่ <?=$_SESSION['farm_name']?>
                             </h4>
+
+
+                            
+                            <?php  foreach ($group as $value) { ?>
                             <div class="row">
-                                <?php 
-                            while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){ 
-                            $result2 = mysqli_query($con,"SELECT value FROM log WHERE log_id = (SELECT MAX(log_id) FROM log WHERE sensor_id = ".$row['sensor_id']." )");
-                            $sensor_value;
-                            while($row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC)){
-                            $sensor_value = $row2['value'];        
-                            }
-                            ?>
+                                <h4 class="header-title"><?=($value[0]["group_name"]==null)? "ไม่ทราบกลุ่ม" : $value[0]["group_name"] ?></h4>
+                                <?php foreach ($value as $row) {
+                                    $result2 = mysqli_query($con,"SELECT value FROM log WHERE log_id = (SELECT MAX(log_id) FROM log WHERE sensor_id = ".$row['sensor_id']." )");
+                                    $sensor_value;
+                                    while($row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC)){
+                                    $sensor_value = $row2['value'];        
+                                    }
+                                ?>
                                 <div class="col-md-4 mt-5 mb-3">
                                     <div class="card">
                                         <div class="seo-fact sbg1">
@@ -333,22 +346,27 @@
                                             </div>
                                             <div class="p-4 d-flex justify-content-between align-items-center">
                                                 <div class="seofct-icon">
-                                                <span><?=$row["farm_name"] ?></span></div>
+                                                <span><?=$row["group_name"] ?></span></div>
                                                 <h5 style="color:white;"><?=$row["unit_name"] ?></h5>
-                                                
                                                 
                                              
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <?php } ?>
+                                <?php }?>
                             </div>
+                        <?php }?>
+                            
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="main-content-inner">
             <div class="container">
                 <div class="row">
@@ -500,7 +518,16 @@
                                 <option value="<?=$row["unit_id"]?>"><?=$row["unit_name"]?></option>
                                 <?php } ?>
                             </select>
-
+                            <label class="col-form-label">กลุ่ม</label>
+                            <select class="custom-select" name="group_id">
+                                <option selected="selected">กรุณาเลือก</option>
+                                <?php  
+                            $query = "SELECT * FROM groupsensor"; 
+                            $result = mysqli_query($con,$query);
+                            while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){ ?>
+                                <option value="<?=$row["group_id"]?>"><?=$row["group_name"]?></option>
+                                <?php } ?>
+                            </select>            
                         </div>
                     </div>
                     <div class="row">

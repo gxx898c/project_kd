@@ -1,7 +1,13 @@
 <?php
         include 'db.php';
         include "session.php";
-        $query = "SELECT * FROM farm WHERE farm_id IN (SELECT farm_id FROM farm_user_acc WHERE user_id = ".$_SESSION["user_id"].")";
+        if($_SESSION['username']== "administrator"){
+            $query = "SELECT * FROM farm";
+        }
+        else{
+            $query = "SELECT * FROM farm WHERE farm_id IN (SELECT farm_id FROM farm_user_acc WHERE user_id = ".$_SESSION["user_id"].")";
+        }
+        
         
         $result = mysqli_query($con,$query);
 ?>
@@ -189,7 +195,7 @@
                         <div class="card-body text-center" >
                         <div class="col-md-12">
                             <div class="card-body text-center">
-                                <a href= "index.php?farm_id=<?=$row['farm_id']?>"> <button type="button" class="btn btn-info btn-xl mb-4"><?= $row['farm_name']?></button> </a>
+                                <a href= "chooseFarmProcess.php?farm_id=<?=$row['farm_id']?>&farm_name=<?=$row['farm_name']?>"> <button type="button" class="btn btn-info btn-xl mb-4"><?= $row['farm_name']?></button> </a>
                             </div>
                         </div>
                         </div>
@@ -217,12 +223,22 @@
         <div class="offset-content tab-content">
             <div id="addsensor" class="tab-pane fade in show active">
                 <div>
-                <form action="choosefarmProcess.php" method="POST">
+                <form action="addfarmProcess.php" method="POST">
                     <div class="form-group">
                         <label for="example-text-input" class="col-form-label">ชื่อ</label>
                         <input class="form-control" type="text" value="..." id="addname" name="farm_name">
                     </div>
                 </div>
+                <label class="col-form-label">เลือกผู้ใช้งาน</label>
+                <select class="custom-select" name="chooseUser">
+                        <option selected="selected">กรุณาเลือก</option>
+                            <?php  
+                                $query2 = "SELECT * FROM user"; 
+                                 $result2 = mysqli_query($con,$query2);
+                                while($row = mysqli_fetch_array($result2,MYSQLI_ASSOC)){ ?>
+                        <option value="<?=$row["user_id"]?>"><?=$row["username"]?></option>
+                            <?php } ?>
+                </select>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="example-text-input" class="col-form-label">ละติจูด</label>
