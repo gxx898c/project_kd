@@ -105,7 +105,7 @@
                                         <?php   if($_SESSION["role"] == 1) { ?>
                                         <a class="dropdown-item" href="usermanagement.php">User Management</a>
                                         <?php   } ?>
-                                        <a class="dropdown-item" href="choosefarm.php">Choose farm</a>           
+                                        <a class="dropdown-item" href="choosefarm.php">Choose farm</a>
                                         <a class="dropdown-item" href="logoutProcess.php">Log Out</a>
                                     </div>
                                 </div>
@@ -137,131 +137,7 @@
                                                 <span>กราฟ</span></a>
                                         </li>
                                     </li>
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="ti-pie-chart"></i>
-                                            <span>Charts</span></a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="barchart.html">bar chart</a>
-                                            </li>
-                                            <li>
-                                                <a href="linechart.html">line Chart</a>
-                                            </li>
-                                            <li>
-                                                <a href="piechart.html">pie chart</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="mega-menu">
-                                        <a href="javascript:void(0)">
-                                            <i class="ti-palette"></i>
-                                            <span>UI Features</span></a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="accordion.html">Accordion</a>
-                                            </li>
-                                            <li>
-                                                <a href="alert.html">Alert</a>
-                                            </li>
-                                            <li>
-                                                <a href="badge.html">Badge</a>
-                                            </li>
-                                            <li>
-                                                <a href="button.html">Button</a>
-                                            </li>
-                                            <li>
-                                                <a href="button-group.html">Button Group</a>
-                                            </li>
-                                            <li>
-                                                <a href="cards.html">Cards</a>
-                                            </li>
-                                            <li>
-                                                <a href="dropdown.html">Dropdown</a>
-                                            </li>
-                                            <li>
-                                                <a href="list-group.html">List Group</a>
-                                            </li>
-                                            <li>
-                                                <a href="media-object.html">Media Object</a>
-                                            </li>
-                                            <li>
-                                                <a href="modal.html">Modal</a>
-                                            </li>
-                                            <li>
-                                                <a href="pagination.html">Pagination</a>
-                                            </li>
-                                            <li>
-                                                <a href="popovers.html">Popover</a>
-                                            </li>
-                                            <li>
-                                                <a href="progressbar.html">Progressbar</a>
-                                            </li>
-                                            <li>
-                                                <a href="tab.html">Tab</a>
-                                            </li>
-                                            <li>
-                                                <a href="typography.html">Typography</a>
-                                            </li>
-                                            <li>
-                                                <a href="form.html">Form</a>
-                                            </li>
-                                            <li>
-                                                <a href="grid.html">grid system</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="mega-menu">
-                                        <a href="javascript:void(0)">
-                                            <i class="ti-layers-alt"></i>
-                                            <span>Pages</span></a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="login.html">Login</a>
-                                            </li>
-                                            <li>
-                                                <a href="login2.html">Login 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="login3.html">Login 3</a>
-                                            </li>
-                                            <li>
-                                                <a href="register.html">Register</a>
-                                            </li>
-                                            <li>
-                                                <a href="register2.html">Register 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="register3.html">Register 3</a>
-                                            </li>
-                                            <li>
-                                                <a href="register4.html">Register 4</a>
-                                            </li>
-                                            <li>
-                                                <a href="screenlock.html">Lock Screen</a>
-                                            </li>
-                                            <li>
-                                                <a href="screenlock2.html">Lock Screen 2</a>
-                                            </li>
-                                            <li>
-                                                <a href="reset-pass.html">reset password</a>
-                                            </li>
-                                            <li>
-                                                <a href="pricing.html">Pricing</a>
-                                            </li>
-                                            <li>
-                                                <a href="404.html">Error 404</a>
-                                            </li>
-                                            <li>
-                                                <a href="500.html">Error 500</a>
-                                            </li>
-                                            <li>
-                                                <a href="invoice.html">
-                                                    <i class="ti-receipt"></i>
-                                                    <span>Invoice Summary</span></a>
-                                            </li>
-                                        </ul>
-                                    </li>
+
                                     <li>
                                         <a href="javascript:void(0)">
                                             <i class="ti-slice"></i>
@@ -276,22 +152,6 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-table"></i>
-                                            <span>Tables</span></a>
-                                        <ul class="submenu">
-                                            <li>
-                                                <a href="table-basic.html">basic table</a>
-                                            </li>
-                                            <li>
-                                                <a href="table-layout.html">table layout</a>
-                                            </li>
-                                            <li>
-                                                <a href="datatable.html">datatable</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
                                         <a href="maps.php">
                                             <i class="ti-map-alt"></i>
                                             <span>แผนที่</span></a>
@@ -300,6 +160,11 @@
                                         <a href="sensorinfo.php">
                                             <i class="ti-help"></i>
                                             <span>ข้อมูลเซนเซอร์</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="log.php">
+                                            <i class="ti-help"></i>
+                                            <span>ประวัติข้อมูล</span></a>
                                     </li>
                                 </ul>
                             </nav>
@@ -317,17 +182,18 @@
         <!-- page title area end -->
         <div class="main-content-inner">
             <div class="row">
-                <div class="col-lg-12 mt-4">
+                <div class="col-md-12 mt-4">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">ยินดีต้อนรับเช้าสู่ <?=$_SESSION['farm_name']?>
+                            <h4 class="header-title">ยินดีต้อนรับเช้าสู่
+                                <?=$_SESSION['farm_name']?>
                             </h4>
 
-
-                            
                             <?php  foreach ($group as $value) { ?>
                             <div class="row">
-                                <h4 class="header-title"><?=($value[0]["group_name"]==null)? "ไม่ทราบกลุ่ม" : $value[0]["group_name"] ?></h4>
+                                <h4 class="header-title pt-3"><?=($value[0]["group_name"]==null)? "ไม่ทราบกลุ่ม" : $value[0]["group_name"] ?></h4>
+                            </div>
+                            <div class="row">
                                 <?php foreach ($value as $row) {
                                     $result2 = mysqli_query($con,"SELECT value FROM log WHERE log_id = (SELECT MAX(log_id) FROM log WHERE sensor_id = ".$row['sensor_id']." )");
                                     $sensor_value;
@@ -335,31 +201,31 @@
                                     $sensor_value = $row2['value'];        
                                     }
                                 ?>
-                                <div class="col-md-4 mt-5 mb-3">
+
+                                <div class="col-md-3 pt-3">
                                     <div class="card">
                                         <div class="seo-fact sbg1">
-                                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                            <div
+                                                class="p-3 d-flex justify-content-between align-items-center"
+                                                style="min-height:120px">
                                                 <div class="seofct-icon">
-                                       
-                                                    <h2><?=$row["sensor_name"] ?></h2></div>
+
+                                                    <h2><?=$row["sensor_name"] ?></h2>
+                                                </div>
                                                 <h2><?=$sensor_value?></h2>
                                             </div>
-                                            <div class="p-4 d-flex justify-content-between align-items-center">
+                                            <div class="p-3 d-flex justify-content-between align-items-center">
                                                 <div class="seofct-icon">
-                                                <span><?=$row["group_name"] ?></span></div>
+                                                    <span><?=$row["group_name"] ?></span></div>
                                                 <h5 style="color:white;"><?=$row["unit_name"] ?></h5>
-                                                
-                                             
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <?php }?>
                             </div>
-                        <?php }?>
-                            
-
-
+                            <?php }?>
 
                         </div>
                     </div>
@@ -507,7 +373,12 @@
                     <form action="addSensorProcess.php" method="POST">
                         <div class="form-group">
                             <label for="example-text-input" class="col-form-label">ชื่อ</label>
-                            <input class="form-control" type="text" value="" id="addsenname" name="sensor_name">
+                            <input
+                                class="form-control"
+                                type="text"
+                                value=""
+                                id="addsenname"
+                                name="sensor_name">
                             <label class="col-form-label">หน่วย</label>
                             <select class="custom-select" name="unit_id">
                                 <option selected="selected">กรุณาเลือก</option>
@@ -527,7 +398,7 @@
                             while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){ ?>
                                 <option value="<?=$row["group_id"]?>"><?=$row["group_name"]?></option>
                                 <?php } ?>
-                            </select>            
+                            </select>
                         </div>
                     </div>
                     <div class="row">

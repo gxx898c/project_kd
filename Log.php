@@ -1,9 +1,11 @@
 <?php 
     include "session.php";
     include 'db.php';
-    $sensor = mysqli_query($con,"SELECT sensor.sensor_name, unittype.unit_name, min, max, lat, lng 
-                                    FROM sensor 
-                                    INNER JOIN unittype ON sensor.unit_id = unittype.unit_id");
+    $log = mysqli_query($con,"SELECT l.log_id, l.sensor_id, l.value, l.time, s.sensor_name, c.group_name, c.group_id
+    FROM log AS l
+    JOIN sensor AS s ON l.sensor_id = s.sensor_id
+    LEFT JOIN sensorgroup AS b ON s.sensor_id = b.sensor_id
+    LEFT JOIN groupsensor AS c ON b.group_id = c.group_id");
 ?>
 
 <!doctype html>
@@ -105,9 +107,10 @@
                                             <li><a href="themify.html">themify icons</a></li>
                                         </ul>
                                     </li>
+                                    
                                     <li><a href="maps.php"><i class="ti-map-alt"></i> <span>แผนที่</span></a></li>
-                                    <li class="active"><a href="sensorinfo.php"><i class="ti-help"></i> <span>ข้อมูลเซนเซอร์</span></a></li>
-                                    <li><a href="Log.php"><i class="ti-help"></i> <span>ประวัติข้อมูล</span></a></li>
+                                    <li><a href="sensorinfo.php"><i class="ti-help"></i> <span>ข้อมูลเซนเซอร์</span></a></li>
+                                    <li class="active"><a href="Log.php"><i class="ti-help"></i> <span>ประวัติข้อมูล</span></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -133,24 +136,22 @@
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
-                                    <th scope="col">ชื่อ</th>
-                                    <th scope="col">หน่วย</th>
-                                    <th scope="col">ค่าต่ำสุด</th>
-                                    <th scope="col">ค่าสูงสุด</th>
-                                    <th scope="col">ละติจูด</th>
-                                    <th scope="col">ลองจิจูด</th>
+                                    <th scope="col">ลำดับ</th>
+                                    <th scope="col">ชื่อเซนเซอร์</th>
+                                    <th scope="col">กลุ่ม</th>
+                                    <th scope="col">ข้อมูล</th>
+                                    <th scope="col">วัน / เดือน / ปี</th>
                                     </tr>
                                 </thead>
                             <tbody>
                             <?php 
-                            while($row = mysqli_fetch_array($sensor,MYSQLI_ASSOC)){ ?>
+                            while($row = mysqli_fetch_array($log,MYSQLI_ASSOC)){ ?>
                                 <tr>
+                                <td><?=$row["log_id"] ?></td>
                                 <td><?=$row["sensor_name"] ?></td>
-                                <td><?=$row["unit_name"] ?></td>
-                                <td><?=$row["min"] ?></td>
-                                <td><?=$row["max"] ?></td>
-                                <td><?=$row["lat"] ?></td>
-                                <td><?=$row["lng"] ?></td>
+                                <td><?=$row["group_name"] ?></td>
+                                <td><?=$row["value"] ?></td>
+                                <td><?=$row["time"] ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
