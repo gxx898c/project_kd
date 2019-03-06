@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2019 at 07:14 PM
+-- Generation Time: Mar 06, 2019 at 04:03 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -21,18 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `smartfarm`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `admin_id` smallint(3) NOT NULL,
-  `username` varchar(200) NOT NULL,
-  `password` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -311,12 +299,6 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `regdate`, `farm_info`, `
 --
 
 --
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`admin_id`);
-
---
 -- Indexes for table `farm`
 --
 ALTER TABLE `farm`
@@ -383,12 +365,6 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `admin_id` smallint(3) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `farm`
 --
 ALTER TABLE `farm`
@@ -422,7 +398,7 @@ ALTER TABLE `sensor`
 -- AUTO_INCREMENT for table `sensorgroup`
 --
 ALTER TABLE `sensorgroup`
-  MODIFY `sensorgroup_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `sensorgroup_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sensor_farm`
