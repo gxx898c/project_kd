@@ -106,7 +106,6 @@
                                     </li>
                                     <li><a href="maps.php"><i class="ti-map-alt"></i> <span>แผนที่</span></a></li>
                                     <li><a href="sensorinfo.php"><i class="ti-help"></i> <span>ข้อมูลเซนเซอร์</span></a></li>
-                                    <li><a href="addFarmMenu.php"><i class="ti-help"></i> <span>เพิ่มฟาร์ม</span></a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -123,7 +122,7 @@
         <!-- page title area end -->
         <div class="main-content-inner">
         <div class="card-body text-center">
-                <h4 class="header-title" >เพิ่มฟาร์ม</h4>
+                <h4 class="header-title" >เลือกฟาร์ม</h4>
                     <div class="row">
                     <?php
                         while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
@@ -165,9 +164,6 @@
                         <input class="form-control" type="text" value="..." id="addname" name="farm_name">
                     </div>
                 </div>
-
-                <?php   if($_SESSION["role"] == 1) { ?>
-                    
                 <label class="col-form-label">เลือกผู้ใช้งาน</label>
                 <select class="custom-select" name="chooseUser">
                         <option selected="selected">กรุณาเลือก</option>
@@ -178,12 +174,6 @@
                         <option value="<?=$row["user_id"]?>"><?=$row["username"]?></option>
                             <?php } ?>
                 </select>
-
-                <?php   } else { ?>
-
-                        <input type="hidden" name="chooseUser" value="<?=$_SESSION["user_id"]?>">
-                            
-                         <?php } ?>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="example-text-input" class="col-form-label">ละติจูด</label>

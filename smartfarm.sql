@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2019 at 04:03 AM
+-- Generation Time: Mar 12, 2019 at 02:59 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -21,6 +21,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `smartfarm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category_list`
+--
+
+CREATE TABLE `category_list` (
+  `category_listID` smallint(3) NOT NULL,
+  `category_listName` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category_name`
+--
+
+CREATE TABLE `category_name` (
+  `category_nameID` smallint(3) NOT NULL,
+  `category_nameName` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -44,17 +66,9 @@ INSERT INTO `farm` (`farm_id`, `farm_name`, `lat`, `lng`) VALUES
 (2, 'ฟาร์มสมหมอย', 12.26159612156312, 12.12318915615615),
 (3, 'สวนสมร', 13.212224236, 13.248251026),
 (4, 'สวนแดงฉาน', 20.125165123123, 20.023165162123),
-(10, 'เทสๆ', 11.11, 11.12),
-(11, 'asdasd', 123.12, 1274.1),
-(12, 'asdasd', 12345.1, 5654.1),
-(13, 'test11', 11.1111, 23473.1),
-(14, 'testaaqeadewsf', 1234.44, 123475.1),
-(15, 'jythgj', 12374.1, 21345.1),
-(16, 'thhjrtfh', 12347.41, 45634753.1),
-(17, 'testagain', 123.12374, 54364.12),
-(18, 'farm01', 1.26165, 1.1251),
-(19, 'testtttt', 12.21212, 122112),
-(20, 'farm111', 1121221, 112.1);
+(21, 'ฟาร์มสมชัย สาขาหนองงูด่างแห', 12.122525, 19.232125),
+(22, 'ฟาร์มสมชัย สาขาหนองงูด่างแห', 12.122525, 19.232125),
+(23, 'ฟาร์ม เทสๆ', 12.121212, 12.44744);
 
 -- --------------------------------------------------------
 
@@ -83,7 +97,10 @@ INSERT INTO `farm_user_acc` (`farm_uid`, `farm_id`, `user_id`) VALUES
 (19, 17, 2),
 (20, 18, 2),
 (21, 19, 2),
-(22, 20, 1);
+(22, 20, 1),
+(23, 21, 5),
+(24, 22, 5),
+(25, 23, 1);
 
 -- --------------------------------------------------------
 
@@ -101,10 +118,10 @@ CREATE TABLE `groupsensor` (
 --
 
 INSERT INTO `groupsensor` (`group_id`, `group_name`) VALUES
-(1, 'อุปกรณ์ที่ 1'),
-(2, 'อุปกรณ์ที่ 2'),
-(3, 'อุปกรณ์ที่ 3'),
-(4, 'อุปกรณ์ที่ 4');
+(1, 'Node 1'),
+(2, 'Node 2'),
+(3, 'Node 3'),
+(4, 'Node 4');
 
 -- --------------------------------------------------------
 
@@ -128,8 +145,6 @@ INSERT INTO `log` (`log_id`, `sensor_id`, `value`, `time`) VALUES
 (2, 1, 32.4, '2019-01-29 09:36:14'),
 (3, 1, 35.5, '2019-01-29 09:36:31'),
 (4, 1, 35.5, '2019-01-29 09:36:31'),
-(5, 2, 10, '2019-02-12 15:25:07'),
-(6, 3, 15, '2019-02-12 15:25:07'),
 (23, 1, 29, '2019-03-05 00:10:00'),
 (24, 1, 30, '2019-03-05 00:20:00'),
 (25, 1, 31, '2019-03-05 00:30:00'),
@@ -157,7 +172,43 @@ INSERT INTO `log` (`log_id`, `sensor_id`, `value`, `time`) VALUES
 (47, 1, 29, '2019-03-05 08:50:00'),
 (48, 1, 28, '2019-03-05 09:00:00'),
 (49, 1, 29, '2019-03-05 09:10:00'),
-(50, 1, 30, '2019-03-05 09:20:00');
+(50, 1, 30, '2019-03-05 09:20:00'),
+(51, 3, 30, '2019-03-12 12:33:19'),
+(52, 7, 80, '2019-03-12 12:45:00'),
+(53, 7, 70, '2019-03-12 13:00:00'),
+(54, 7, 80, '2019-03-12 13:10:00'),
+(55, 7, 75, '2019-03-12 13:10:00'),
+(56, 7, 80, '2019-03-12 13:15:00'),
+(57, 7, 80, '2019-03-12 13:20:00'),
+(58, 7, 75, '2019-03-12 13:30:00'),
+(59, 3, 20, '2019-03-12 06:20:00'),
+(60, 3, 20, '2019-03-12 06:20:00'),
+(61, 3, 22, '2019-03-12 06:22:00'),
+(62, 3, 22.2, '2019-03-12 06:29:00'),
+(63, 3, 30, '2019-03-12 06:40:00'),
+(65, 2, 22, '2019-03-11 23:00:00'),
+(66, 2, 22, '2019-03-11 23:00:00'),
+(67, 2, 23, '2019-03-11 23:05:00'),
+(68, 2, 22.5, '2019-03-11 23:10:00'),
+(69, 2, 22.2, '2019-03-11 23:15:00'),
+(70, 2, 22, '2019-03-11 23:20:00'),
+(71, 2, 23, '2019-03-11 23:20:00'),
+(72, 2, 22.8, '2019-03-11 23:25:00'),
+(73, 2, 22, '2019-03-11 23:30:00'),
+(74, 2, 25, '2019-03-12 00:00:00'),
+(75, 2, 25, '2019-03-12 00:00:00'),
+(76, 2, 24, '2019-03-12 00:05:00'),
+(77, 2, 24.2, '2019-03-12 00:10:00'),
+(78, 2, 24.5, '2019-03-12 00:15:00'),
+(79, 2, 25.1, '2019-03-12 00:20:00'),
+(80, 2, 25, '2019-03-12 00:25:00'),
+(81, 2, 24.8, '2019-03-12 00:30:00'),
+(82, 2, 26, '2019-03-12 00:35:00'),
+(83, 2, 25, '2019-03-12 00:40:00'),
+(84, 2, 26, '2019-03-12 00:45:00'),
+(85, 2, 25, '2019-03-12 00:50:00'),
+(86, 2, 25, '2019-03-12 00:55:00'),
+(87, 2, 24.8, '2019-03-12 01:00:00');
 
 -- --------------------------------------------------------
 
@@ -173,24 +224,23 @@ CREATE TABLE `sensor` (
   `min` smallint(5) NOT NULL,
   `max` smallint(5) NOT NULL,
   `lat` double NOT NULL,
-  `lng` double NOT NULL
+  `lng` double NOT NULL,
+  `category_name` smallint(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sensor`
 --
 
-INSERT INTO `sensor` (`sensor_id`, `sensor_name`, `dateadd`, `unit_id`, `min`, `max`, `lat`, `lng`) VALUES
-(1, 'วัดอุณหภูมิ', '2019-03-05 15:48:14', 1, 0, 100, 13.1231895615617, 13.1231895615618),
-(2, 'วัดความชื้น', '2019-03-05 15:48:19', 2, 0, 100, 13.1251665126, 13.3215616513),
-(3, 'วัดแรงลม', '2019-03-05 15:48:25', 3, 0, 100, 13.1231895615616, 13.1231895615618),
-(4, 'วัด UV', '2019-03-05 15:48:31', 4, 0, 100, 15.251651165151, 16.216513615156),
-(5, 'qqqqqqqqqq', '2019-01-30 15:20:05', 4, 0, 111, 1191, 1234),
-(6, 'q', '2019-01-30 14:43:04', 1, 0, 100, 1111111, 111111),
-(7, 'น้ำ 1', '2019-03-04 17:09:01', 5, 0, 100, 2132213123, 12123213312),
-(8, 'ลม 1', '2019-03-04 17:10:02', 3, 0, 100, 12121, 1111134534534),
-(9, 'UV 1', '2019-03-05 14:47:03', 4, 0, 100, 121, 1124),
-(10, 'UV 2', '2019-03-05 14:47:21', 4, 0, 100, 114, 1114);
+INSERT INTO `sensor` (`sensor_id`, `sensor_name`, `dateadd`, `unit_id`, `min`, `max`, `lat`, `lng`, `category_name`) VALUES
+(1, 'วัดอุณหภูมิ', '2019-03-05 15:48:14', 1, 0, 100, 13.1231895615617, 13.1231895615618, 0),
+(2, 'วัดความชื้น', '2019-03-05 15:48:19', 2, 0, 100, 13.1251665126, 13.3215616513, 0),
+(3, 'วัดแรงลม', '2019-03-05 15:48:25', 3, 0, 100, 13.1231895615616, 13.1231895615618, 0),
+(4, 'วัด UV', '2019-03-05 15:48:31', 4, 0, 100, 15.251651165151, 16.216513615156, 0),
+(7, 'น้ำ 1', '2019-03-04 17:09:01', 5, 0, 100, 2132213123, 12123213312, 0),
+(8, 'ลม 1', '2019-03-04 17:10:02', 3, 0, 100, 12121, 1111134534534, 0),
+(9, 'UV 1', '2019-03-05 14:47:03', 4, 0, 100, 121, 1124, 0),
+(10, 'UV 2', '2019-03-05 14:47:21', 4, 0, 100, 114, 1114, 0);
 
 -- --------------------------------------------------------
 
@@ -299,6 +349,18 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `regdate`, `farm_info`, `
 --
 
 --
+-- Indexes for table `category_list`
+--
+ALTER TABLE `category_list`
+  ADD PRIMARY KEY (`category_listID`);
+
+--
+-- Indexes for table `category_name`
+--
+ALTER TABLE `category_name`
+  ADD PRIMARY KEY (`category_nameID`);
+
+--
 -- Indexes for table `farm`
 --
 ALTER TABLE `farm`
@@ -365,16 +427,28 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `category_list`
+--
+ALTER TABLE `category_list`
+  MODIFY `category_listID` smallint(3) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `category_name`
+--
+ALTER TABLE `category_name`
+  MODIFY `category_nameID` smallint(3) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `farm`
 --
 ALTER TABLE `farm`
-  MODIFY `farm_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `farm_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `farm_user_acc`
 --
 ALTER TABLE `farm_user_acc`
-  MODIFY `farm_uid` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `farm_uid` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `groupsensor`
@@ -386,7 +460,7 @@ ALTER TABLE `groupsensor`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `sensor`
@@ -421,6 +495,12 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `category_name`
+--
+ALTER TABLE `category_name`
+  ADD CONSTRAINT `category_name_ibfk_1` FOREIGN KEY (`category_nameID`) REFERENCES `category_list` (`category_listID`);
 
 --
 -- Constraints for table `farm_user_acc`

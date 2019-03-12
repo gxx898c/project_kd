@@ -1,6 +1,27 @@
-<?php 
+<?php
     include "session.php";
     include 'db.php';
+    $graph = [];
+    $query = "SELECT a.sensor_id, a.sensor_name, a.unit_id, a.min, a.max, a.lat, a.lng, b.group_id, c.group_name, d.unit_name 
+    FROM sensor AS a LEFT JOIN sensorgroup AS b ON a.sensor_id = b.sensor_id 
+    LEFT JOIN groupsensor AS c ON b.group_id = c.group_id 
+    LEFT JOIN unittype AS d ON a.unit_id = d.unit_id 
+    WHERE a.sensor_id IN (SELECT sensor_id FROM sensor_farm WHERE farm_id = ".$_SESSION['farm_id'].") 
+    ORDER BY c.group_name";
+    $result = mysqli_query($con,$query);
+    $group;
+    while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+        if ($row['group_id'] == null){
+            $group[-1][] = $row;
+        }
+        else
+            $group[$row['group_id']][] = $row;
+    }
+    
+?>
+
+<?php 
+
     $log = mysqli_query($con,"SELECT l.log_id, l.sensor_id, l.value, l.time, s.sensor_name, c.group_name, c.group_id
     FROM log AS l
     JOIN sensor AS s ON l.sensor_id = s.sensor_id
@@ -172,20 +193,78 @@
         <!-- header area end -->
         <!-- page title area end -->
         <div class="main-content-inner">
-            <div class="container">
-                <div class="row">
-                    <!-- Statistics area start -->
-                    <div class="col-lg-8 mt-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="header-title">อุปกรณที่ 1
-                                </h4>
-                                <div id="chart_div" style="width:1300px; height:650px;"></div>
-                                <!-- <div id="amlinechart2"></div> -->
+            <div class="row">
+                <div class="col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- HEAD PAGE -->
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h1 class="header-title">ข้อมูลเซนเซอร์ ของฟาร์ม <?=$_SESSION['farm_name']?></h1>
+                                </div>
                             </div>
+                            <!-- DATA -->
+                            <?php  foreach ($group as $value) { ?>
+                            <!-- GROUP -->
+                            <div class="row justify-content-md-center pt-3">
+                                <div class="col-md-12 text-center px-3 py-3" style="background-color: #EEEEEE;box-shadow: 1px 1px #AAAAAA;">
+                                  <div class="row justify-content-md-center">
+                                    <div class="col-md-12 text-left">
+                                                <h4 class="header-title pt-3"><?=($value[0]["group_name"]==null)? "ไม่ทราบกลุ่ม" : $value[0]["group_name"] ?></h4>
+                                     </div>
+                                    <div class="col-md-8">
+                                        <!-- TABLE -->
+                                        <?php foreach ($value as $row) {
+                                                $log = mysqli_query($con,"SELECT l.log_id, l.sensor_id, l.value, l.time, s.sensor_name, c.group_name, c.group_id
+                                                FROM log AS l
+                                                JOIN sensor AS s ON l.sensor_id = s.sensor_id
+                                                LEFT JOIN sensorgroup AS b ON s.sensor_id = b.sensor_id
+                                                LEFT JOIN groupsensor AS c ON b.group_id = c.group_id
+                                                WHERE l.sensor_id = ".$row['sensor_id']." ORDER BY l.time DESC LIMIT 25");
+                                            ?>
+                                        <div class="row">
+                                            <div class="col-md-2 text-left">
+                                                 <button disabled="disabled" class="btn btn-outline-primary btn-block"><?=$row['sensor_name']?></button>
+                                            </div>
+                                        </div>
+                                        <?php if(mysqli_num_rows($log) > 0){?>
+                                        <div class="row">
+                                            <div class="pt-3 col-md-12 data-tables text-center" align="center">
+
+                                                <div id="chart_<?=$row['sensor_id']?>" style="width:1300px; height:650px;"></div>
+                                                <?php 
+                                               while($rowin = mysqli_fetch_array($log,MYSQLI_ASSOC)){
+                                                //print_r($rowin);
+                                                $graph[$rowin['sensor_id']][] = [$rowin['time'],(float)$rowin['value']];
+                                                }?>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <?php } else if(mysqli_num_rows($log) == 0) { ?>
+                                        <div class="row">
+                                            <div class="col-md-12 text-left pt-3">
+                                                <div class="alert alert-danger" role="alert">
+                                                <?=$row['sensor_name']?> &nbsp; &nbsp;ยังไม่มีข้อมูล
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php } ?>
+                                            <hr>
+                                        <?php } ?>
+                                        <!-- END TABLE -->
+
+                                     </div>
+
+
+                                  </div>
+                                </div>
+                            </div>
+
+                            <?php } ?>
+                            <!-- END GROUP -->
                         </div>
                     </div>
-                    <!-- Statistics area end -->
                 </div>
             </div>
         </div>
@@ -331,6 +410,7 @@
         </div>
     </div>
 </div>
+
 <!-- offset area end -->
 <!-- jquery latest version -->
 <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
@@ -379,13 +459,18 @@ google
     .setOnLoadCallback(drawBasic);
 
 function drawBasic() {
-    var array = <?php echo json_encode($data, JSON_UNESCAPED_UNICODE);?>;
-    var data = new google
+    var graph = <?=json_encode($graph);?>;
+    
+    <?php foreach ($graph as $key => $value) { ?>
+        console.log(<?=$key?>);
+        var data = new google
         .visualization
         .DataTable();
     data.addColumn('string', 'X');
     data.addColumn('number', 'Value');
-
+    var array = <?php echo json_encode(array_reverse($value), JSON_UNESCAPED_UNICODE);?>;
+    console.log(array);
+    
     data.addRows(array);
 
       var options = {
@@ -397,9 +482,10 @@ function drawBasic() {
         }
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.LineChart(document.getElementById('chart_<?=$key;?>'));
 
       chart.draw(data, options);
+    <?php } ?>
     }
 </script>
 </body>
